@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer to automatically cleanup unused apt packages
+
+[Timer]
+OnCalendar=daily
+Unit=apt-cleanup.service
+
+[Install]
+WantedBy=basic.target
