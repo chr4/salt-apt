@@ -1,0 +1,7 @@
+name: apt
+os: Debian, Ubuntu
+os_family: Debian
+version: 201807
+release: 1
+summary: Formula to configure apt and provide cleanup service
+description: Formula to configure apt and provide cleanup service
