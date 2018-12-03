@@ -1,5 +1,7 @@
 apt_purge_kernels:
   cmd.run:
+    - env:
+      - DEBIAN_FRONTEND: noninteractive
     - name: |
         apt-get purge -y $( \
           dpkg --list | \
@@ -13,6 +15,8 @@ apt_purge_kernels:
 
 apt_purge_packages:
   cmd.run:
+    - env:
+      - DEBIAN_FRONTEND: noninteractive
     - name: |
         apt-get autoremove -y; \
         apt-get purge -y $( \
