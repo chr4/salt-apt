@@ -1,0 +1,9 @@
+# vim: ft=yaml
+
+apt:
+  unattended-upgrades:
+    # Disable unattended-upgrades
+    disable: true
+
+    # Blacklist packages to prevent automatic upgrades
+    blacklist: [keepalived, vim]
