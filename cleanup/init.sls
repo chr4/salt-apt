@@ -9,7 +9,7 @@ apt-cleanup.timer:
       - cmd: systemctl daemon-reload
   file.managed:
     - name: /lib/systemd/system/apt-cleanup.timer
-    - source: salt://{{ slspath }}/apt-cleanup.timer
+    - source: salt://{{ tpldir }}/apt-cleanup.timer
     - user: root
     - group: root
     - mode: 644
@@ -20,7 +20,7 @@ apt-cleanup.timer:
 
 /lib/systemd/system/apt-cleanup.service:
   file.managed:
-    - source: salt://{{ slspath }}/apt-cleanup.service
+    - source: salt://{{ tpldir }}/apt-cleanup.service
     - user: root
     - group: root
     - mode: 644
