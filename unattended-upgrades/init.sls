@@ -29,4 +29,25 @@ apt_blacklist_unattended_upgrades:
 {%- for pkg in salt['pillar.get']('apt:unattended-upgrades:blacklist', []) %}
         "{{ pkg }}";
 {%- endfor %}
+
+# Enable automatic updates for all packages if specified in pillar
+apt_upgrade_all_origins:
+  file.blockreplace:
+    - name: /etc/apt/apt.conf.d/50unattended-upgrades
+    - marker_start: 'Unattended-Upgrade::Allowed-Origins {'
+    - marker_end: '};'
+    - content: |
+        // Enable security updates (default)
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-security";
+        "${distro_id}ESMApps:${distro_codename}-apps-security";
+        "${distro_id}ESM:${distro_codename}-infra-security";
+
+{% if salt['pillar.get']('apt:unattended-upgrades:all-origins', false) %}
+        // Enable automatic updates for other origins
+        "${distro_id}:${distro_codename}-updates";
+        "${distro_id}:${distro_codename}-proposed";
+        "${distro_id}:${distro_codename}-backports";
+{% endif %}
+
 {% endif %}
