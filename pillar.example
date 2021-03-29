@@ -8,5 +8,5 @@ apt:
     # Blacklist packages to prevent automatic upgrades
     blacklist: [keepalived, vim]
 
-    # Enable automatic updates for all origins
+    # Enable automatic upgrade for packages from all origins (not only security)
     all-origins: all

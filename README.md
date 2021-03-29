@@ -12,6 +12,7 @@ sudo salt-call state.apply apt.cleanup.now
 sudo salt-call state.apply apt.cleanup
 ```
 
+
 ## State to configure unattended upgrades
 
 This state enables/ disables automatic security upgrades on Ubuntu.
@@ -21,3 +22,10 @@ See pillar.example for details.
 ```bash
 sudo salt-call state.apply apt.unattended-upgrades
 ```
+
+
+## State to keep modified configuration files automatically on updates
+
+This state sets the `dpkg` configuration options `--force-confdef` and
+`--force-confold`, so configuration files you've modified are kept
+automatically upon updates.
