@@ -1,7 +1,7 @@
 apt_keep_configured_configuration_files:
   file.managed:
     - name: /etc/apt/apt.conf.d/20keep-oldconf
-    - owner: root
+    - user: root
     - group: root
     - mode: 644
     - contents: |
