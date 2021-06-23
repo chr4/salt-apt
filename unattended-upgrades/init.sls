@@ -30,8 +30,8 @@ apt_blacklist_unattended_upgrades:
         "{{ pkg }}";
 {%- endfor %}
 
-# Enable automatic updates for all packages if specified in pillar
-apt_upgrade_all_origins:
+# Enable security updates
+apt_upgrade_default_origins:
   file.blockreplace:
     - name: /etc/apt/apt.conf.d/50unattended-upgrades
     - marker_start: 'Unattended-Upgrade::Allowed-Origins {'
@@ -43,11 +43,19 @@ apt_upgrade_all_origins:
         "${distro_id}ESMApps:${distro_codename}-apps-security";
         "${distro_id}ESM:${distro_codename}-infra-security";
 
+apt_upgrade_all_origins:
+  file.blockreplace:
+    - name: /etc/apt/apt.conf.d/50unattended-upgrades
+    - marker_start: 'Unattended-Upgrade::Origins-Pattern {'
+    - marker_end: '};'
+    - append_if_not_found: true
+# Enable automatic updates for all packages if specified in pillar
 {% if salt['pillar.get']('apt:unattended-upgrades:all-origins', false) %}
-        // Enable automatic updates for other origins
-        "${distro_id}:${distro_codename}-updates";
-        "${distro_id}:${distro_codename}-proposed";
-        "${distro_id}:${distro_codename}-backports";
+    - content: |
+        // This selects all origins as well as those without origins specified
+        "origin=*";
+        "origin=";
+{% else %}
+    - content: ''
 {% endif %}
-
 {% endif %}
