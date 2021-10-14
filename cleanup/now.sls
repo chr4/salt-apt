@@ -10,7 +10,8 @@ apt_purge_kernels:
           sort -nr | \
           tail -n +2 | \
           grep -v $(uname -r) | \
-          awk '{ print $2}' \
+          awk '{ print $2}' | \
+          tr '[:space:]' ' ' \
         )
 
 apt_purge_packages:
@@ -22,5 +23,6 @@ apt_purge_packages:
         apt-get purge -y $( \
           dpkg --list | \
           grep '^rc' | \
-          awk '{print $2}' \
+          awk '{print $2}' | \
+          tr '[:space:]' ' ' \
         )
