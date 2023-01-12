@@ -3,12 +3,12 @@ apt-cleanup.timer:
   service.running:
     - enable: true
     - watch:
-      - file: /lib/systemd/system/apt-cleanup.timer
+      - file: /etc/systemd/system/apt-cleanup.timer
     - require:
-      - file: /lib/systemd/system/apt-cleanup.timer
+      - file: /etc/systemd/system/apt-cleanup.timer
       - cmd: systemctl daemon-reload
   file.managed:
-    - name: /lib/systemd/system/apt-cleanup.timer
+    - name: /etc/systemd/system/apt-cleanup.timer
     - source: salt://{{ tpldir }}/apt-cleanup.timer
     - user: root
     - group: root
@@ -16,9 +16,9 @@ apt-cleanup.timer:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
-      - file: /lib/systemd/system/apt-cleanup.timer
+      - file: /etc/systemd/system/apt-cleanup.timer
 
-/lib/systemd/system/apt-cleanup.service:
+/etc/systemd/system/apt-cleanup.service:
   file.managed:
     - source: salt://{{ tpldir }}/apt-cleanup.service
     - user: root
@@ -27,4 +27,4 @@ apt-cleanup.timer:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
-      - file: /lib/systemd/system/apt-cleanup.service
+      - file: /etc/systemd/system/apt-cleanup.service
