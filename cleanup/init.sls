@@ -28,3 +28,9 @@ apt-cleanup.timer:
     - name: systemctl daemon-reload
     - onchanges:
       - file: /etc/systemd/system/apt-cleanup.service
+
+apt_clean_packages:
+  file.managed:
+    - name: /etc/apt/apt.conf.d/30clean-packages
+    - contents: |
+        APT::Keep-Downloaded-Packages "false";
