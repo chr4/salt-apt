@@ -31,6 +31,6 @@ apt-cleanup.timer:
 
 apt_clean_packages:
   file.managed:
-    - name: /etc/apt/apt.conf.d/30clean-packages
+    - name: /etc/apt/apt.conf.d/30remove-downloaded-packages
     - contents: |
         APT::Keep-Downloaded-Packages "false";
