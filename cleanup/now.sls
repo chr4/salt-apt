@@ -26,3 +26,9 @@ apt_purge_packages:
           awk '{print $2}' | \
           tr '[:space:]' ' ' \
         )
+
+apt_clean_packages:
+  cmd.run:
+    - env:
+      - DEBIAN_FRONTEND: noninteractive
+    - name: apt-get clean -y
